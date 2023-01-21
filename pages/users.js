@@ -4,10 +4,14 @@ function users({ users }) {
   return (
     <>
       <div>users</div>
-      <div key={users.id}>
-        <p>{users.username}</p>
-        <h4>{users.email}</h4>
-      </div>
+      {users.map((user) => {
+        return (
+          <div key={user.id}>
+            <p>{user.name}</p>
+            <h4>{user.email}</h4>
+          </div>
+        );
+      })}
     </>
   );
 }
