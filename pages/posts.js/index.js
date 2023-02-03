@@ -1,29 +1,34 @@
-import React from "react";
-import users from "../users";
 import Link from "next/link";
 
-function index({ users }) {
+function PostList({ posts }) {
   return (
-    <div>
-      {users.map((user) => {
+    <>
+      <h1>List of Posts</h1>
+      {posts.map((post) => {
         return (
-          <Link href={`/posts/${user.id}`}>
-            <p>{user.title}</p>
-          </Link>
+          <div key={post.id}>
+            <Link href={`posts/${post.id}`}>
+              <h2>
+                {post.id} {post.title}
+              </h2>
+            </Link>
+            <hr />
+          </div>
         );
       })}
-    </div>
+    </>
   );
 }
 
-export default index;
+export default PostList;
 
 export async function getStaticProps() {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
   const data = await response.json();
+
   return {
     props: {
-      users: data,
+      posts: data.slice(0, 3),
     },
   };
 }
